@@ -6,7 +6,7 @@ const connectDB = require("./config/dbConnection");
 
 const app = express();
 app.use(cors({
-  origin: "http://localhost:3000", // frontend URL
+  origin: "https://ecommerce-frontend-dun-iota.vercel.app", // frontend URL
   methods: ["GET", "POST", "PUT", "DELETE"],
 }));
 
