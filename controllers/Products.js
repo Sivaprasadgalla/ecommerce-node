@@ -1,5 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const Product = require("../models/ProductModel");
+const uploadToImgBB = require("../config/uploadImage");
 
 // GET /api/products
 const getProducts = asyncHandler(async(req, res) => {
@@ -9,18 +10,30 @@ const getProducts = asyncHandler(async(req, res) => {
 
 // POST /api/products
 const createProduct = asyncHandler(async(req, res) => {
-    const {name, description, price, stock} = req.body;
-    if(!name || !description || !price || !stock) {
-        res.status(400);
-        throw new Error("All the fields are required!");
+    console.log("Creating product");
+    const {name, description, price, stock, image} = req.body;
+    if(!name || !description || !price || !stock || !image) {
+        res.status(400).json({ message: "All the fields are required!" });
+        return;
     }
+    // console.log("All fields are present");
+    
+    // const imageUrl = await uploadToImgBB(image.split(",")[1]); // Pass only the base64 part
+    // console.log(imageUrl, "Image uploaded");
+
+
     const product = await Product.create({
         name,
         description,
         price,
+        image,
         stock, 
-        user_id: req.user.id
     })
+    
+    if (!product) {
+        res.status(400).json({ message: "Unable to create the product" });
+    }
+    
     res.status(200).json({ message: "Created the product!", product});
 });
 

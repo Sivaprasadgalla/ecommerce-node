@@ -5,10 +5,7 @@ const errorHandler = require("./middleware/errorHandler");
 const connectDB = require("./config/dbConnection");
 
 const app = express();
-app.use(cors({
-  origin: "https://ecommerce-frontend-dun-iota.vercel.app", // frontend URL
-  methods: ["GET", "POST", "PUT", "DELETE"],
-}));
+app.use(cors());
 
 connectDB();
 const port = process.env.PORT || 5000;
