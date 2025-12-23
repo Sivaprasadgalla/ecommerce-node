@@ -14,6 +14,7 @@ app.use(express.json());
 app.use("/api/contacts", require("./routes/ContactRoutes"));
 app.use("/api/users", require("./routes/UserRoutes"));
 app.use("/api/products", require("./routes/ProductRoutes"));
+app.use("/api/cart", require("./routes/CartRoutes"));
 app.use(errorHandler);
 
 app.listen(port, () => {
